@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly --require dotenv/config ./server.ts",
+    "dev": "ts-node-dev --respawn --transpileOnly -r dotenv/config ./server.ts",
     "prod": "tsc && node ./build/server.js",
     "lint": "tslint --project ."
   },
