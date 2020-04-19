@@ -4,26 +4,26 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
+import visitRouter from './resources/visit/visit.router';
+
 export const app = express();
 
 app.disable('x-powered-by');
 
 app.use(cors());
 app.use(json());
+app.use(morgan('dev'));
 app.use(
   urlencoded({
     extended: true,
   })
 );
-app.use(morgan('dev'));
 
-app.use('/', (_, res) => {
-  res.status(200).send('YO!');
-});
+app.use('/', visitRouter);
 
 export const start = async () => {
   try {
-    mongoose.connect(process.env.DB_URL || '', {
+    await mongoose.connect(process.env.DB_URL || '', {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
