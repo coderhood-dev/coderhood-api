@@ -1,6 +1,6 @@
 import visitModel from './visit.model';
 
-export const getCount = async (req, res) => {
+export const getCount = async (_: any, res: any) => {
   const countVisits = () => {
     return new Promise((resolve, reject) => {
       visitModel.countDocuments({}, (e, count) => {
