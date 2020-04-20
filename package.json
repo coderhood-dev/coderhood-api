@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpileOnly -r dotenv/config ./server.ts",
-    "prod": "tsc && node ./build/server.js",
+    "prod": "tsc && node -r dotenv/config ./build/server.js",
     "lint": "tslint --project ."
   },
   "husky": {
