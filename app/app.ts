@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import visitRouter from './resources/visit/visit.router';
+import subjectRouter from './resources/subject/subject.router';
 
 export const app = express();
 
@@ -20,6 +21,7 @@ app.use(
 );
 
 app.use('/', visitRouter);
+app.use('/subjects', subjectRouter);
 
 export const start = async () => {
   try {
