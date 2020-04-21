@@ -5,9 +5,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import expressFormidable from 'express-formidable';
 import adminBro from 'admin-bro';
-// @ts-ignore
 import adminBroExpressjs from 'admin-bro-expressjs';
-// @ts-ignore
 import adminBroMongoose from 'admin-bro-mongoose';
 
 adminBro.registerAdapter(adminBroMongoose);
