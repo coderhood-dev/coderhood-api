@@ -3,6 +3,7 @@ import { json, urlencoded } from 'body-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import expressFormidable from 'express-formidable';
 import adminBro from 'admin-bro';
 import adminBroExpressjs from 'admin-bro-expressjs';
 import adminBroMongoose from 'admin-bro-mongoose';
@@ -23,6 +24,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use(expressFormidable());
 
 app.use('/', visitRouter);
 app.use('/subjects', subjectRouter);
