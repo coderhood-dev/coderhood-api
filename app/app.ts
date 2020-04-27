@@ -8,10 +8,11 @@ import adminBro from 'admin-bro';
 import adminBroExpressjs from 'admin-bro-expressjs';
 import adminBroMongoose from 'admin-bro-mongoose';
 
-adminBro.registerAdapter(adminBroMongoose);
-
+import { checkAuth } from './utils/auth';
 import visitRouter from './resources/visit/visit.router';
+import roadmapRouter from './resources/roadmap/roadmap.router';
 import subjectRouter from './resources/subject/subject.router';
+import linkRouter from './resources/link/link.router';
 
 export const app = express();
 
@@ -25,10 +26,18 @@ app.use(
   })
 );
 
-app.use(expressFormidable());
+app.use(expressFormidable()); // needed for adminbro
 
-app.use('/', visitRouter);
+// public routes
+app.use('/visits', visitRouter);
+app.use('/roadmaps', roadmapRouter);
 app.use('/subjects', subjectRouter);
+
+// protected routes
+app.use('/', checkAuth);
+app.use('/links', linkRouter);
+
+adminBro.registerAdapter(adminBroMongoose);
 
 export const start = async () => {
   try {
