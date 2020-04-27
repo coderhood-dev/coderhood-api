@@ -4,9 +4,9 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import expressFormidable from 'express-formidable';
-import adminBro from 'admin-bro';
-import adminBroExpressjs from 'admin-bro-expressjs';
-import adminBroMongoose from 'admin-bro-mongoose';
+// import adminBro from 'admin-bro';
+// import adminBroExpressjs from 'admin-bro-expressjs';
+// import adminBroMongoose from 'admin-bro-mongoose';
 
 import { checkAuth } from './utils/auth';
 import visitRouter from './resources/visit/visit.router';
@@ -37,7 +37,7 @@ app.use('/subjects', subjectRouter);
 app.use('/', checkAuth);
 app.use('/links', linkRouter);
 
-adminBro.registerAdapter(adminBroMongoose);
+// adminBro.registerAdapter(adminBroMongoose);
 
 export const start = async () => {
   try {
@@ -46,18 +46,18 @@ export const start = async () => {
       useNewUrlParser: true,
     });
 
-    const bro = new adminBro({
-      databases: [mongooseDb],
-      branding: {
-        companyName: 'Coderhood',
-      },
-    });
+    // const bro = new adminBro({
+    //   databases: [mongooseDb],
+    //   branding: {
+    //     companyName: 'Coderhood',
+    //   },
+    // });
 
-    const router = adminBroExpressjs.buildRouter(bro);
-    app.use('/admin', router);
+    // const router = adminBroExpressjs.buildRouter(bro);
+    // app.use('/admin', router);
 
     app.listen(process.env.PORT, () => {
-      console.log(`REST API on http://localhost:${process.env.PORT}/api`);
+      console.log(`REST API on ${process.env.PORT}\n`);
     });
   } catch (e) {
     console.error(e);
