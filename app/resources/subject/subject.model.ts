@@ -7,8 +7,19 @@ const subjectSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
+    title: {
+      type: String,
+      unique: true,
+      required: true,
+    },
     description: {
       type: String,
+      required: true,
+    },
+    image_url: String,
+    roadmap: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'roadmap',
       required: true,
     },
   },
@@ -21,5 +32,10 @@ const subjectSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+subjectSchema.path('image_url').validate((val: string) => {
+  const urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
+  return urlRegex.test(val);
+}, 'Invalid URL');
 
 export default mongoose.model('subject', subjectSchema);
