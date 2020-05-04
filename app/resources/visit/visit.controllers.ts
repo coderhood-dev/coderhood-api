@@ -17,7 +17,7 @@ export const getCount = async (_: any, res: any) => {
     await visitModel.create({});
     const count = await countVisits();
 
-    res.status(200).send({ data: { visits: count } });
+    res.status(200).send({ visits: count });
   } catch (e) {
     console.error(e);
     res.status(400).send({ message: e });

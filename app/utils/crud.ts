@@ -6,7 +6,7 @@ export const createOneFromUser = (
   const createdBy = req.user._id;
   try {
     const doc = await model.create({ ...req.body, createdBy });
-    res.status(201).json({ data: doc });
+    res.status(201).json(doc);
   } catch (e) {
     console.error(e);
     res.status(400).end();
@@ -26,7 +26,7 @@ export const getOneFromUser = (
       return res.status(400).end();
     }
 
-    res.status(200).json({ data: doc });
+    res.status(200).json(doc);
   } catch (e) {
     console.error(e);
     res.status(400).end();
@@ -39,7 +39,7 @@ export const getManyFromUser = (
   try {
     const docs = await model.find({ createdBy: req.user._id }).lean().exec();
 
-    res.status(200).json({ data: docs });
+    res.status(200).json(docs);
   } catch (e) {
     console.error(e);
     res.status(400).end();
@@ -66,7 +66,7 @@ export const updateOneFromUser = (
       return res.status(400).end();
     }
 
-    res.status(200).json({ data: updatedDoc });
+    res.status(200).json(updatedDoc);
   } catch (e) {
     console.error(e);
     res.status(400).end();
@@ -86,7 +86,7 @@ export const removeOneFromUser = (
       return res.status(400).end();
     }
 
-    return res.status(200).json({ data: removed });
+    return res.status(200).json(removed);
   } catch (e) {
     console.error(e);
     res.status(400).end();
@@ -100,7 +100,7 @@ export const getMany = (model: mongoose.Model<mongoose.Document, {}>) => async (
   try {
     const docs = await model.find({}).lean().exec();
 
-    res.status(200).json({ data: docs });
+    res.status(200).json(docs);
   } catch (e) {
     console.error(e);
     res.status(400).end();
@@ -118,7 +118,7 @@ export const getOne = (model: mongoose.Model<mongoose.Document, {}>) => async (
       return res.status(400).end();
     }
 
-    res.status(200).json({ data: doc });
+    res.status(200).json(doc);
   } catch (e) {
     console.error(e);
     res.status(400).end();

@@ -22,11 +22,7 @@ export const getRoadmap = async (req: any, res: any) => {
       return res.status(400).end();
     }
 
-    const data = {
-      ...roadmap,
-      subjects,
-    };
-    res.status(200).json({ data });
+    res.status(200).json({ ...roadmap, subjects });
   } catch (e) {
     console.error(e);
     res.status(400).end();
