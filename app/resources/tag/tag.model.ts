@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 
-const visitSchema = new mongoose.Schema(
+const tagSchema = new mongoose.Schema(
   {
-    created_at: { type: Date, default: Date.now },
+    name: {
+      type: String,
+      unique: true,
+    },
   },
   {
     writeConcern: {
@@ -14,4 +17,4 @@ const visitSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model('visit', visitSchema);
+export default mongoose.model('tag', tagSchema);

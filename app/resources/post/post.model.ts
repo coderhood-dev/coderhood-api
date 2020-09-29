@@ -1,13 +1,8 @@
 import mongoose from 'mongoose';
 
-const roadmapSchema = new mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
     title: {
-      type: String,
-      unique: true,
-      required: true,
-    },
-    description: {
       type: String,
       required: true,
     },
@@ -15,11 +10,22 @@ const roadmapSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    tech: [
+    content: {
+      type: String,
+      required: true,
+    },
+    author: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user',
+    },
+    dateCreated: {
+      type: Date,
+      default: Date.now,
+    },
+    tags: [
       {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'tech',
-        order: Number,
+        ref: 'tag',
       },
     ],
   },
@@ -33,4 +39,4 @@ const roadmapSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model('roadmap', roadmapSchema);
+export default mongoose.model('post', postSchema);

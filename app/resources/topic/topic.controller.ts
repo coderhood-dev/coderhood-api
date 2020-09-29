@@ -1,8 +1,8 @@
-import subjectModel from './subject.model';
+import topicModel from './topic.model';
 
 export const createOne = async (req: any, res: any) => {
   try {
-    const doc = await subjectModel.create(req.body);
+    const doc = await topicModel.create(req.body);
     res.status(201).json(doc);
   } catch (e) {
     console.error(e);
@@ -12,7 +12,7 @@ export const createOne = async (req: any, res: any) => {
 
 export const getMany = async (_: any, res: any) => {
   try {
-    const docs = await subjectModel.find({}).lean().exec();
+    const docs = await topicModel.find({}).lean().exec();
 
     res.status(200).json(docs);
   } catch (e) {

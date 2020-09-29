@@ -16,11 +16,6 @@ const linkSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    topic: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'topic',
-      required: true,
-    },
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user',
@@ -37,10 +32,10 @@ const linkSchema = new mongoose.Schema(
   }
 );
 
-linkSchema.path('url').validate((val: string) => {
+/*linkSchema.path('url').validate((val: string) => {
   const urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
   return urlRegex.test(val);
-}, 'Invalid URL.');
+}, 'Invalid URL.');*/
 
 linkSchema.index({ topic: 1, url: 1 }, { unique: true });
 

@@ -1,25 +1,27 @@
 import mongoose from 'mongoose';
 
-const roadmapSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
-    title: {
+    auth_id: {
       type: String,
       unique: true,
-      required: true,
     },
-    description: {
+    role: {
       type: String,
-      required: true,
     },
-    image: {
+    first_name: {
       type: String,
-      required: true,
     },
-    tech: [
+    last_name: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    topics: [
       {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'tech',
-        order: Number,
+        ref: 'topic',
       },
     ],
   },
@@ -33,4 +35,4 @@ const roadmapSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model('roadmap', roadmapSchema);
+export default mongoose.model('user', userSchema);
