@@ -9,9 +9,7 @@ import expressFormidable from 'express-formidable';
 // import adminBroMongoose from 'admin-bro-mongoose';
 
 import { checkAuth } from './utils/auth';
-import visitRouter from './resources/visit/visit.router';
 import roadmapRouter from './resources/roadmap/roadmap.router';
-import subjectRouter from './resources/subject/subject.router';
 import linkRouter from './resources/link/link.router';
 
 export const app = express();
@@ -29,9 +27,7 @@ app.use(
 app.use(expressFormidable()); // needed for adminbro
 
 // public routes
-app.use('/visits', visitRouter);
 app.use('/roadmaps', roadmapRouter);
-app.use('/subjects', subjectRouter);
 
 // protected routes
 app.use('/', checkAuth);

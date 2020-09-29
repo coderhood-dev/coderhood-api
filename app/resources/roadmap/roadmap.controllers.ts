@@ -1,6 +1,6 @@
 import { crudControllers } from '../../utils/crud';
 import roadmapModel from './roadmap.model';
-import subjectModel from '../subject/subject.model';
+import topicModel from '../topic/topic.model';
 
 export const getRoadmap = async (req: any, res: any) => {
   try {
@@ -13,16 +13,13 @@ export const getRoadmap = async (req: any, res: any) => {
       return res.status(400).end();
     }
 
-    const subjects = await subjectModel
-      .find({ roadmap: roadmap._id })
-      .lean()
-      .exec();
+    const topic = await topicModel.find({ roadmap: roadmap._id }).lean().exec();
 
-    if (!subjects) {
+    if (!topic) {
       return res.status(400).end();
     }
 
-    res.status(200).json({ ...roadmap, subjects });
+    res.status(200).json({ ...roadmap, topic });
   } catch (e) {
     console.error(e);
     res.status(400).end();

@@ -1,26 +1,31 @@
 import mongoose from 'mongoose';
 
-const topicSchema = new mongoose.Schema(
+const techSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       unique: true,
-      required: true,
     },
     description: {
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
+    topics: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'topic',
+        order: Number,
+      },
+    ],
     links: [
       {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'link',
-      },
-    ],
-    posts: [
-      {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'post',
+        order: Number,
       },
     ],
   },
@@ -34,9 +39,4 @@ const topicSchema = new mongoose.Schema(
   }
 );
 
-/*subjectSchema.path('image_url').validate((val: string) => {
-  const urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
-  return urlRegex.test(val);
-}, 'Invalid URL');*/
-
-export default mongoose.model('topic', topicSchema);
+export default mongoose.model('tech', techSchema);
