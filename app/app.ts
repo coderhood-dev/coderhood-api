@@ -9,8 +9,8 @@ import expressFormidable from 'express-formidable';
 // import adminBroMongoose from 'admin-bro-mongoose';
 
 import { checkAuth } from './utils/auth';
-import roadmapRouter from './resources/roadmap/roadmap.router';
-import linkRouter from './resources/link/link.router';
+import userRouter from './resources/user/user.router';
+// import linkRouter from './resources/link/link.router';
 
 export const app = express();
 
@@ -27,11 +27,11 @@ app.use(
 app.use(expressFormidable()); // needed for adminbro
 
 // public routes
-app.use('/roadmaps', roadmapRouter);
+
 
 // protected routes
-app.use('/', checkAuth);
-app.use('/links', linkRouter);
+// app.use('/', checkAuth);
+app.use('/createuser', userRouter);
 
 // adminBro.registerAdapter(adminBroMongoose);
 
@@ -41,7 +41,6 @@ export const start = async () => {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
-
     // const bro = new adminBro({
     //   databases: [mongooseDb],
     //   branding: {
