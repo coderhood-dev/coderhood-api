@@ -31,7 +31,7 @@ app.use(expressFormidable()); // needed for adminbro
 
 // protected routes
 // app.use('/', checkAuth);
-app.use('/createuser', userRouter);
+app.use('/user', userRouter);
 
 // adminBro.registerAdapter(adminBroMongoose);
 

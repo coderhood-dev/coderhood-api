@@ -3,6 +3,6 @@ import userControllers from './user.controllers';
 
 const router = Router();
 
-router.route('/createuser').post(userControllers.createUserAuth);
+router.post('/', userControllers.createUserAuth);
 
 export default router;

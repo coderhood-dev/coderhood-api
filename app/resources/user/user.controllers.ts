@@ -56,6 +56,10 @@ interface MapOfKidToPublicKey {
     aud: string;
   }
 
+  interface Token {
+    token?: string;
+  }
+
 const cognitoIssuer = `https://cognito-idp.${AWS_REGION}.amazonaws.com/${COGNITO_USER_POOL_ID}`;
 
 let cacheKeys: MapOfKidToPublicKey;
@@ -66,6 +70,7 @@ const getPublicKeys = async (): Promise<MapOfKidToPublicKey> => {
     const publicKeys = await axios.get(url);
     cacheKeys = publicKeys.data.keys.reduce((agg: MapOfKidToPublicKey = {}, current: any) => {
       const pem = jwkToPem(current);
+      console.log('current', current)
       agg[current.kid] = {pem, instance: current};
       return agg;
     });
@@ -76,13 +81,10 @@ const getPublicKeys = async (): Promise<MapOfKidToPublicKey> => {
 
 const verifyPromised = promisify(jsonwebtoken.verify.bind(jsonwebtoken));
 
-export const createUserAuth = async (req: any, res: any) => {
+const createUserAuth = async (req: any, res: any) => {
   try {
-    console.log(req)
-    const token = req.idToken
-    console.log(token)
+    const token = req.fields.token
     const tokenSections = (token || '').split('.');
-    console.log(tokenSections)
     if (tokenSections.length < 2) {
         return res.status(400).json({
             status: false,
@@ -91,9 +93,10 @@ export const createUserAuth = async (req: any, res: any) => {
     }
     const headerJSON = Buffer.from(tokenSections[0], 'base64').toString('utf8');
     const header = JSON.parse(headerJSON) as TokenHeader;
-
+    console.log('header', header)
     const keys = await getPublicKeys();
-    
+    console.log(keys)
+    console.log(header.kid)
     const key = keys[header.kid];
     if (key === undefined) {
         return res.status(400).json({
@@ -119,17 +122,10 @@ export const createUserAuth = async (req: any, res: any) => {
         });
     }
     
-    if (claim.token_use !== 'id') {
+    if (claim.token_use !== 'access') {
         return res.status(400).json({
             status: false,
-            message: 'Claim use is not type id',
-        });
-    }
-
-    if (claim.aud !== COGNITO_CLIENT_ID) {
-        return res.status(400).json({
-            status: false,
-            message: 'Token was not issued for this audience',
+            message: 'Claim use is not type access',
         });
     }
     
